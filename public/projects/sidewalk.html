@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sidewalk Case Study — Sarthak Singh | Small Business Social & Messaging Platform</title>
+  <meta name="description" content="Detailed case study: How I built Sidewalk, a small business social & messaging platform with Swift, Firebase, and MapKit in 8 weeks." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:wght@400;500;600;700&family=Public+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #FAFAFA; --surface: #FFFFFF; --surface-2: #F4F4F5;
+      --border: #E4E4E7; --border-hover: #BFDBFE;
+      --brand: #2563EB; --brand-light: #3B82F6; --brand-dim: rgba(37,99,235,0.08);
+      --green: #10b981; --amber: #f59e0b; --pink: #ec4899; --purple: #8b5cf6; --red: #ef4444;
+      --text: #09090B; --muted: #3F3F46; --dim: #71717A; --dimmer: #A1A1AA;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Public Sans', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: var(--brand-light); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: var(--brand); }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+    /* Header */
+    .header { position: sticky; top: 0; z-index: 50; backdrop-filter: blur(20px) saturate(180%); background: rgba(250,250,250,0.8); border-bottom: 1px solid var(--border); }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .logo { font-weight: 800; font-size: 18px; color: var(--text); letter-spacing: -0.02em; }
+    .logo span { color: var(--brand); }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { color: var(--dim); font-size: 13px; font-weight: 500; }
+    .nav-links a:hover { color: var(--brand); }
+    .btn-primary { background: #2563EB; color: #fff !important; padding: 8px 20px; border-radius: 9999px; font-size: 13px; font-weight: 600; transition: all 0.2s; display: inline-block; }
+    .btn-primary:hover { background: var(--brand-light); transform: translateY(-1px); }
+
+    /* Back Link */
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--dim); margin-bottom: 32px; transition: color 0.2s; }
+    .back-link:hover { color: var(--brand); }
+    .back-link svg { width: 16px; height: 16px; }
+
+    /* Hero */
+    .case-hero { padding: 60px 0 50px; position: relative; overflow: hidden; }
+    .case-hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(37,99,235,0.06) 0%, transparent 70%); pointer-events: none; }
+    .case-label { display: inline-flex; align-items: center; gap: 8px; background: var(--brand-dim); border: 1px solid rgba(37,99,235,0.15); border-radius: 9999px; padding: 6px 16px; font-size: 11px; font-weight: 600; color: var(--brand); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 20px; }
+    .case-hero h1 { font-family: 'Libre Bodoni', Georgia, serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 14px; color: var(--text); }
+    .case-hero .subtitle { color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 700px; margin-bottom: 28px; }
+    .meta-row { display: flex; gap: 24px; flex-wrap: wrap; padding: 20px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+    .meta-item { font-size: 12px; color: var(--dimmer); }
+    .meta-item strong { color: var(--muted); font-weight: 600; }
+
+    /* App Store Badge */
+    .app-store-badge { display: inline-flex; align-items: center; gap: 10px; padding: 10px 22px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; font-size: 13px; font-weight: 600; color: var(--text); transition: all 0.25s; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+    .app-store-badge:hover { border-color: var(--border-hover); background: rgba(37,99,235,0.04); color: var(--brand); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+    .app-store-badge .badge-sub { font-size: 10px; color: var(--dim); font-weight: 400; line-height: 1; }
+    .app-store-badge .badge-main { line-height: 1.1; }
+
+    /* Sections */
+    .section { padding: 50px 0; }
+    .section-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; color: var(--brand); font-weight: 600; margin-bottom: 8px; font-family: 'JetBrains Mono', monospace; }
+    .section h2 { font-family: 'Libre Bodoni', Georgia, serif; font-size: 26px; font-weight: 700; margin-bottom: 6px; color: var(--text); letter-spacing: -0.02em; }
+    .section h3 { font-family: 'Libre Bodoni', Georgia, serif; font-size: 20px; font-weight: 600; margin-bottom: 6px; color: var(--text); letter-spacing: -0.01em; }
+    .section-desc { color: var(--muted); font-size: 14px; margin-bottom: 32px; line-height: 1.8; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* Card */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 32px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.02); }
+    .card + .card { margin-top: 20px; }
+
+    /* Content Typography */
+    .prose { color: var(--muted); font-size: 14.5px; line-height: 1.85; }
+    .prose p { margin-bottom: 16px; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose ul { margin: 12px 0; padding-left: 20px; }
+    .prose li { margin-bottom: 8px; line-height: 1.75; }
+    .prose strong { color: var(--text); font-weight: 600; }
+
+    /* Challenge List */
+    .challenge-list { list-style: none; padding: 0; margin: 16px 0 0; }
+    .challenge-list li { font-size: 14px; color: var(--muted); padding: 8px 0; display: flex; align-items: flex-start; gap: 10px; line-height: 1.7; border-bottom: 1px solid rgba(228,228,231,0.5); }
+    .challenge-list li:last-child { border-bottom: none; }
+    .challenge-list li .icon { flex-shrink: 0; width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; margin-top: 2px; }
+
+    /* Phase Timeline */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before { content: ''; position: absolute; left: 11px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(180deg, var(--brand) 0%, rgba(37,99,235,0.15) 100%); border-radius: 1px; }
+    .timeline-item { position: relative; margin-bottom: 36px; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-dot { position: absolute; left: -32px; top: 4px; width: 22px; height: 22px; border-radius: 50%; background: var(--surface); border: 2px solid var(--brand); display: flex; align-items: center; justify-content: center; z-index: 1; }
+    .timeline-dot .inner { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); }
+    .timeline-phase { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--brand); font-weight: 600; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+    .timeline-title { font-family: 'Libre Bodoni', Georgia, serif; font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+    .timeline-content { color: var(--muted); font-size: 13.5px; line-height: 1.8; }
+    .timeline-content ul { margin: 8px 0 0; padding-left: 16px; }
+    .timeline-content li { margin-bottom: 6px; }
+
+    /* Tech Table */
+    .tech-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+    .tech-table th { text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--brand); font-weight: 600; font-family: 'JetBrains Mono', monospace; padding: 10px 16px; background: var(--surface-2); border-bottom: 1px solid var(--border); }
+    .tech-table th:first-child { border-radius: 8px 0 0 0; }
+    .tech-table th:last-child { border-radius: 0 8px 0 0; }
+    .tech-table td { padding: 12px 16px; font-size: 13.5px; color: var(--muted); border-bottom: 1px solid rgba(228,228,231,0.5); vertical-align: top; }
+    .tech-table td:first-child { font-weight: 600; color: var(--text); font-size: 13px; white-space: nowrap; }
+    .tech-table tr:last-child td { border-bottom: none; }
+    .tech-table .tech-tag { display: inline-block; background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px; font-size: 12px; color: var(--muted); font-weight: 500; margin: 2px 2px; }
+
+    /* Key Decisions */
+    .decisions { margin: 20px 0; }
+    .decision { padding: 20px; border-radius: 10px; background: rgba(37,99,235,0.03); border: 1px solid rgba(37,99,235,0.08); margin-bottom: 12px; }
+    .decision:last-child { margin-bottom: 0; }
+    .decision-num { font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--brand); font-weight: 600; font-family: 'JetBrains Mono', monospace; margin-bottom: 4px; }
+    .decision h4 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .decision p { font-size: 13px; color: var(--muted); line-height: 1.75; }
+
+    /* Screenshot Gallery */
+    .screenshot-gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0; }
+    .screenshot-gallery figure { margin: 0; text-align: center; }
+    .screenshot-gallery img { width: 100%; height: 200px; object-fit: cover; object-position: top; border-radius: 12px; border: 1px solid var(--border); transition: all 0.3s; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .screenshot-gallery img:hover { border-color: var(--brand); transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.12); }
+    .screenshot-gallery figcaption { font-size: 11px; color: var(--dimmer); margin-top: 8px; font-weight: 500; }
+
+    /* Results Grid */
+    .results-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 24px 0; }
+    .result-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 12px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: border-color 0.3s; }
+    .result-card:hover { border-color: var(--border-hover); }
+    .result-val { font-size: 22px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; }
+    .result-val.green { color: var(--green); }
+    .result-val.brand { color: var(--brand); }
+    .result-val.amber { color: var(--amber); }
+    .result-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--dimmer); margin-top: 4px; line-height: 1.4; }
+
+    /* Review */
+    .review-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 36px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); position: relative; }
+    .review-stars { color: var(--amber); font-size: 16px; letter-spacing: 3px; margin-bottom: 16px; }
+    .review-quote { font-size: 15px; color: var(--muted); font-style: italic; line-height: 1.85; margin-bottom: 20px; position: relative; }
+    .review-quote::before { content: '\201C'; font-family: 'Libre Bodoni', Georgia, serif; font-size: 60px; color: rgba(37,99,235,0.12); position: absolute; top: -30px; left: -8px; line-height: 1; }
+    .review-author { font-size: 13px; color: var(--dimmer); }
+    .review-author strong { color: var(--muted); font-weight: 600; }
+    .review-rating-badge { position: absolute; top: 24px; right: 32px; background: var(--brand-dim); border: 1px solid rgba(37,99,235,0.15); border-radius: 10px; padding: 8px 16px; text-align: center; }
+    .review-rating-badge .rval { font-size: 20px; font-weight: 800; color: var(--brand); letter-spacing: -0.02em; }
+    .review-rating-badge .rlbl { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--brand); opacity: 0.7; }
+
+    /* Skills Tags */
+    .skills-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 20px 0; }
+    .skill-tag { background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); border-radius: 8px; padding: 6px 14px; font-size: 12px; font-weight: 500; transition: border-color 0.2s; }
+    .skill-tag:hover { border-color: var(--border-hover); }
+
+    /* CTA */
+    .cta-section { text-align: center; padding: 70px 0; position: relative; overflow: hidden; }
+    .cta-section::before { content: ''; position: absolute; bottom: -100px; left: 50%; transform: translateX(-50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(37,99,235,0.05) 0%, transparent 70%); pointer-events: none; }
+    .cta-section h2 { font-family: 'Libre Bodoni', Georgia, serif; font-size: 28px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-bottom: 12px; }
+    .cta-section p { color: var(--dim); font-size: 14px; margin-bottom: 28px; }
+    .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-secondary { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 10px 24px; border-radius: 9999px; font-size: 13px; font-weight: 600; transition: all 0.2s; display: inline-block; }
+    .btn-secondary:hover { border-color: var(--border-hover); color: var(--brand); transform: translateY(-1px); }
+    .btn-cta { padding: 12px 28px; border-radius: 9999px; font-size: 14px; font-weight: 600; }
+
+    /* Footer */
+    .footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; }
+    .footer p { font-size: 12px; color: var(--dimmer); }
+
+    /* Lightbox */
+    .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 1000; align-items: center; justify-content: center; cursor: zoom-out; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 90%; max-height: 90vh; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .screenshot-gallery { grid-template-columns: repeat(2, 1fr); }
+      .screenshot-gallery img { height: 160px; }
+      .results-grid { grid-template-columns: repeat(3, 1fr); }
+      .meta-row { gap: 16px; }
+      .review-rating-badge { position: static; display: inline-block; margin-bottom: 16px; }
+      .tech-table { font-size: 13px; }
+    }
+    @media (max-width: 480px) {
+      .nav-links a:not(.btn-primary) { display: none; }
+      .results-grid { grid-template-columns: repeat(2, 1fr); }
+      .screenshot-gallery { grid-template-columns: 1fr 1fr; }
+      .screenshot-gallery img { height: 140px; }
+      .case-hero h1 { font-size: 1.6rem; }
+      .card { padding: 24px; }
+      .timeline { padding-left: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo"><span>V</span>R</a>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/portfolio/">Portfolio</a>
+        <a href="/cv.html">CV</a>
+        <a href="/#contact" class="btn-primary">Hire Me</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Case Study Hero -->
+  <section class="case-hero">
+    <div class="container">
+      <a href="/portfolio/" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Portfolio
+      </a>
+      <div class="case-label mono">Case Study</div>
+      <h1>Sidewalk &mdash; Small Business Social &amp; Messaging Platform</h1>
+      <p class="subtitle">How we built an interactive community platform that connects local businesses with real-time messaging, social feeds, and business discovery &mdash; all in 8 weeks.</p>
+
+      <div class="meta-row">
+        <div class="meta-item"><strong>Client:</strong> Sidewalk Inc.</div>
+        <div class="meta-item"><strong>Role:</strong> iOS Developer</div>
+        <div class="meta-item"><strong>Duration:</strong> 8 weeks</div>
+        <div class="meta-item"><strong>Published:</strong> Dec 2019</div>
+      </div>
+
+      <a href="https://apps.apple.com/us/app/sidewalk-for-small-business/id1485123981" target="_blank" rel="noopener" class="app-store-badge">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <div>
+          <div class="badge-sub">Download on the</div>
+          <div class="badge-main">App Store</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- The Client -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">The Client</div>
+      <h2>Sidewalk Inc.</h2>
+      <div class="prose" style="margin-top:16px;">
+        <p>Sidewalk Inc. wanted to create an interactive platform for local businesses to communicate with one another, share best practices, and discover vendors and other businesses in their community. The vision was clear: any business, large or small, could set up an account in a few clicks to begin discovering what others around them are doing.</p>
+        <p>The founding team had deep roots in the small business community and saw firsthand how isolated many local businesses felt. They believed that if you could lower the barrier to connection &mdash; making it as simple as signing up and browsing a feed &mdash; businesses would naturally form the kind of partnerships and knowledge-sharing networks that help them thrive.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- The Challenge -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">The Challenge</div>
+      <h2>Small Businesses Had No Dedicated Place to Connect</h2>
+      <div class="prose" style="margin-top:16px;">
+        <p>Small businesses struggled to connect meaningfully with their local community. Social media platforms like Facebook and Instagram were too broad, algorithm-driven, and expensive for neighborhood-level engagement. There was no dedicated space where local businesses could build genuine professional relationships at the community level.</p>
+      </div>
+
+      <ul class="challenge-list" style="margin-top:24px;">
+        <li>
+          <span class="icon" style="background:rgba(239,68,68,0.08);color:var(--red);">&#10005;</span>
+          <div><strong>No discovery tools for local businesses</strong> &mdash; Finding tools, vendors, and partnership opportunities among other companies in the area required word-of-mouth or expensive networking events.</div>
+        </li>
+        <li>
+          <span class="icon" style="background:rgba(239,68,68,0.08);color:var(--red);">&#10005;</span>
+          <div><strong>No relevant, localized business feeds</strong> &mdash; Existing social platforms buried local business content under algorithm-driven consumer posts. There was no way to stay up to date on everything business within local and categorized news feeds.</div>
+        </li>
+        <li>
+          <span class="icon" style="background:rgba(239,68,68,0.08);color:var(--red);">&#10005;</span>
+          <div><strong>No direct communication channel</strong> &mdash; Businesses had no way to form one-on-one relationships with other companies and communicate directly in a professional, business-focused context.</div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- My Approach — Phase by Phase -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">My Approach</div>
+      <h2>Start to Finish &mdash; The Complete Build Journey</h2>
+      <p class="section-desc">Here is exactly how I took Sidewalk from concept to App Store in 8 weeks, broken down phase by phase.</p>
+
+      <div class="timeline">
+
+        <!-- Phase 1 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"><div class="inner"></div></div>
+          <div class="timeline-phase">Phase 1 &mdash; Week 1</div>
+          <div class="timeline-title">Discovery &amp; Planning</div>
+          <div class="timeline-content">
+            <p>The first week was dedicated entirely to understanding the product vision and mapping out the technical foundation.</p>
+            <ul>
+              <li><strong>Stakeholder meetings</strong> &mdash; Met with the Sidewalk team to understand their vision for the platform, target users, and success metrics. Discussed the competitive landscape and what would make Sidewalk different from general social media.</li>
+              <li><strong>User journey mapping</strong> &mdash; Mapped out the three core user journeys in detail: business discovery (finding vendors, tools, and partners), feed browsing (staying informed on local business activity), and direct messaging (forming one-on-one business relationships).</li>
+              <li><strong>Information architecture</strong> &mdash; Designed the data architecture for business profiles, social feeds, messaging threads, and user authentication. Created entity-relationship diagrams to ensure efficient data modeling.</li>
+              <li><strong>Technology stack selection</strong> &mdash; Chose Swift/UIKit for native iOS development (performance and polish), Firebase Realtime Database for the real-time backend (instant sync for messaging and feeds), and AWS for additional infrastructure services.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"><div class="inner"></div></div>
+          <div class="timeline-phase">Phase 2 &mdash; Week 2</div>
+          <div class="timeline-title">Architecture &amp; Setup</div>
+          <div class="timeline-content">
+            <p>With the plan locked in, I set up the project scaffolding and all backend services.</p>
+            <ul>
+              <li><strong>Project setup</strong> &mdash; Initialized the Xcode project with Swift and UIKit, following the MVVM (Model-View-ViewModel) architecture pattern to ensure clean separation of concerns and testable business logic.</li>
+              <li><strong>Firebase configuration</strong> &mdash; Set up Firebase Realtime Database for real-time data synchronization across all clients. Configured database rules for security and structured the JSON tree for efficient queries.</li>
+              <li><strong>Authentication layer</strong> &mdash; Implemented Firebase Authentication with email/password registration, ensuring secure user onboarding. Built password reset flows and session management.</li>
+              <li><strong>AWS integration</strong> &mdash; Configured AWS services for additional backend infrastructure, including media storage and server-side processing that Firebase alone couldn't handle.</li>
+              <li><strong>Data models</strong> &mdash; Created the core Swift data models for businesses, posts, messages, user profiles, and categories. Ensured all models were Codable for seamless Firebase serialization.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"><div class="inner"></div></div>
+          <div class="timeline-phase">Phase 3 &mdash; Weeks 3 to 5</div>
+          <div class="timeline-title">Core Feature Development</div>
+          <div class="timeline-content">
+            <p>The bulk of the build happened during these three weeks. Every major feature came to life.</p>
+            <ul>
+              <li><strong>Business Profiles</strong> &mdash; Built comprehensive business profile pages with service listings, location display via MapKit, contact information, media gallery, and business category tagging. Each profile served as a mini-website for the business within the app.</li>
+              <li><strong>Social Feed System</strong> &mdash; Created local and categorized news feeds where businesses could post updates, promotions, events, and announcements. Implemented real-time feed updates so new posts appeared instantly without manual refresh. Added support for text, image, and link posts.</li>
+              <li><strong>Business Discovery</strong> &mdash; Implemented in-app search and discovery features with filtering by category, location, and business type. Used MapKit to show nearby businesses on an interactive map, letting users explore their local business ecosystem visually.</li>
+              <li><strong>Direct Messaging</strong> &mdash; Built a full real-time one-on-one messaging system using Firebase Realtime Database. Messages appeared instantly on both ends with read receipts, typing indicators, and support for rich media (images and links). This was the core engagement feature of the app.</li>
+              <li><strong>Push Notifications</strong> &mdash; Integrated Firebase Cloud Messaging (FCM) for push notifications. Configured notifications for new messages, feed interactions, and new business activity in the user's area to drive ongoing engagement.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 4 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"><div class="inner"></div></div>
+          <div class="timeline-phase">Phase 4 &mdash; Weeks 6 to 7</div>
+          <div class="timeline-title">Polish &amp; Testing</div>
+          <div class="timeline-content">
+            <p>With all features functional, I focused on making the app feel polished, performant, and bulletproof.</p>
+            <ul>
+              <li><strong>UI refinement</strong> &mdash; Refined every screen to match the client's design specifications pixel-perfectly. Adjusted spacing, typography, colors, and layout to ensure a professional, cohesive visual identity throughout the app.</li>
+              <li><strong>Animations and transitions</strong> &mdash; Implemented smooth animations for screen transitions, message bubbles, feed loading, and interactive elements. Added subtle micro-interactions that gave the app a premium, responsive feel.</li>
+              <li><strong>Device testing</strong> &mdash; Conducted comprehensive testing across multiple iPhone models (iPhone 8 through iPhone 11 Pro Max at the time) to ensure layout consistency, performance, and usability on every screen size.</li>
+              <li><strong>Edge case handling</strong> &mdash; Fixed edge cases in real-time messaging (offline message queuing, simultaneous typing, message ordering) and data synchronization (conflict resolution, network loss recovery).</li>
+              <li><strong>Performance optimization</strong> &mdash; Profiled and optimized app performance including memory usage, image loading (lazy loading and caching), feed pagination, and Firebase query efficiency. Ensured smooth 60fps scrolling and fast screen loads.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Phase 5 -->
+        <div class="timeline-item">
+          <div class="timeline-dot"><div class="inner"></div></div>
+          <div class="timeline-phase">Phase 5 &mdash; Week 8</div>
+          <div class="timeline-title">Launch &amp; Delivery</div>
+          <div class="timeline-content">
+            <p>The final stretch: preparing for the App Store and shipping the product.</p>
+            <ul>
+              <li><strong>App Store preparation</strong> &mdash; Created polished App Store screenshots for all required device sizes, wrote the app description with optimized keywords, and prepared all metadata for Apple's requirements.</li>
+              <li><strong>Apple App Review submission</strong> &mdash; Submitted the app to Apple's review process, ensuring full compliance with the App Store Review Guidelines. Addressed any review feedback promptly.</li>
+              <li><strong>Successful launch</strong> &mdash; Sidewalk went live on the App Store, ready for businesses to download and start connecting with their local community.</li>
+              <li><strong>Documentation and handoff</strong> &mdash; Provided complete project documentation including architecture overview, setup instructions, API documentation, Firebase structure guide, and deployment procedures so the client's team could maintain and extend the app going forward.</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Technical Deep Dive -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Technical Deep Dive</div>
+      <h2>Technology Stack &amp; Architecture</h2>
+      <p class="section-desc">A look under the hood at the technologies and architectural decisions that powered Sidewalk.</p>
+
+      <div class="card">
+        <h3 style="margin-bottom:16px;">Technology Stack</h3>
+        <table class="tech-table">
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Technology</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Frontend</td>
+              <td><span class="tech-tag">Swift</span> <span class="tech-tag">UIKit</span></td>
+              <td>Native iOS development for optimal performance, smooth animations, and full access to platform APIs</td>
+            </tr>
+            <tr>
+              <td>Backend</td>
+              <td><span class="tech-tag">Firebase Realtime DB</span></td>
+              <td>Real-time data synchronization for messaging, feeds, and business profiles across all connected clients</td>
+            </tr>
+            <tr>
+              <td>Authentication</td>
+              <td><span class="tech-tag">Firebase Auth</span></td>
+              <td>Secure user registration, login, password reset, and session management</td>
+            </tr>
+            <tr>
+              <td>Cloud</td>
+              <td><span class="tech-tag">AWS</span></td>
+              <td>Additional backend services including media storage and server-side processing</td>
+            </tr>
+            <tr>
+              <td>Maps</td>
+              <td><span class="tech-tag">MapKit</span></td>
+              <td>Business location display, nearby discovery, and interactive map-based browsing</td>
+            </tr>
+            <tr>
+              <td>Messaging</td>
+              <td><span class="tech-tag">Firebase Cloud Messaging</span></td>
+              <td>Push notifications for new messages, feed activity, and business interactions</td>
+            </tr>
+            <tr>
+              <td>Architecture</td>
+              <td><span class="tech-tag">MVVM</span></td>
+              <td>Clean code organization with separated business logic, testable ViewModels, and reactive UI binding</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <h3 style="margin-bottom:16px;">Key Technical Decisions</h3>
+        <div class="decisions">
+          <div class="decision">
+            <div class="decision-num">Decision 01</div>
+            <h4>Native Swift over React Native</h4>
+            <p>Chose native iOS development with Swift for optimal performance, smooth 60fps animations, and full access to iOS platform APIs like MapKit, push notifications, and camera. For an app that relied heavily on real-time messaging and map interactions, native development ensured the polished, responsive experience that users expect.</p>
+          </div>
+          <div class="decision">
+            <div class="decision-num">Decision 02</div>
+            <h4>Firebase Realtime Database for Live Features</h4>
+            <p>Firebase Realtime Database was the perfect choice for the core messaging and live feed features. It provides instant data synchronization across all connected clients without polling &mdash; when one user sends a message or posts an update, every relevant client sees it in milliseconds. This eliminated the need to build and maintain a custom WebSocket server.</p>
+          </div>
+          <div class="decision">
+            <div class="decision-num">Decision 03</div>
+            <h4>MVVM Architecture Pattern</h4>
+            <p>Adopted the Model-View-ViewModel pattern to separate business logic from the UI layer. This made the codebase maintainable and testable &mdash; ViewModels could be unit tested independently of UIKit, and the clear separation made it easy for the client's future developers to understand and extend the code.</p>
+          </div>
+          <div class="decision">
+            <div class="decision-num">Decision 04</div>
+            <h4>MapKit for Business Location Features</h4>
+            <p>Used Apple's native MapKit framework for all business location and discovery features. MapKit provided smooth, familiar map interactions that iOS users already understand, with excellent performance and no additional API costs. Custom annotations and clustering made the map-based discovery experience intuitive and visually clean.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Screenshots -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">App Screenshots</div>
+      <h2>The Final Product</h2>
+      <p class="section-desc">A look at the key screens of the Sidewalk app as delivered and published on the App Store.</p>
+
+      <div class="screenshot-gallery">
+        <figure>
+          <img src="/projects/sidewalk-cover.jpg" alt="Sidewalk App Cover" onclick="openLightbox(this)" />
+          <figcaption>App Cover</figcaption>
+        </figure>
+        <figure>
+          <img src="/projects/sidewalk-1.jpg" alt="Sidewalk Social Feed" onclick="openLightbox(this)" />
+          <figcaption>Social Feed</figcaption>
+        </figure>
+        <figure>
+          <img src="/projects/sidewalk-2.jpg" alt="Sidewalk Messaging" onclick="openLightbox(this)" />
+          <figcaption>Messaging</figcaption>
+        </figure>
+        <figure>
+          <img src="/projects/sidewalk-3.jpg" alt="Sidewalk Business Profile" onclick="openLightbox(this)" />
+          <figcaption>Business Profile</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Results -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Results</div>
+      <h2>Measurable Outcomes</h2>
+      <p class="section-desc">What Sidewalk achieved after launch.</p>
+
+      <div class="results-grid">
+        <div class="result-card">
+          <div class="result-val green">&#10003;</div>
+          <div class="result-label">Launched on<br/>App Store</div>
+        </div>
+        <div class="result-card">
+          <div class="result-val brand">Live</div>
+          <div class="result-label">B2B Social &amp;<br/>Messaging</div>
+        </div>
+        <div class="result-card">
+          <div class="result-val green">Real-time</div>
+          <div class="result-label">Messaging &amp;<br/>Feed System</div>
+        </div>
+        <div class="result-card">
+          <div class="result-val amber">Active</div>
+          <div class="result-label">Push Notification<br/>Engagement</div>
+        </div>
+        <div class="result-card">
+          <div class="result-val" style="color:var(--brand);">5.0/5.0</div>
+          <div class="result-label">Client<br/>Satisfaction</div>
+        </div>
+      </div>
+
+      <div class="prose" style="margin-top:20px;">
+        <p>The Sidewalk platform was delivered on time and on budget within the 8-week timeline. The real-time messaging and social feed systems worked flawlessly from day one, providing the instant, responsive experience that is critical for a communication platform. The push notification system drove ongoing engagement, bringing users back into the app for new messages and relevant business activity in their area. The client was extremely satisfied with both the product quality and the development process.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Client Review -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Client Review</div>
+      <h2>What the Client Said</h2>
+      <div style="margin-top:24px;">
+        <div class="review-card">
+          <div class="review-rating-badge">
+            <div class="rval">5.0</div>
+            <div class="rlbl">/ 5.0</div>
+          </div>
+          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="review-quote">
+            Sarthak has been an absolute pleasure to work with, and I am definitely going to work with him in the future. He is extremely talented with development and communication and doesn't 'scope creep' you at all. If you need something done on a timeline, this guy is the man. He knows how to work with complex problems and get deep in code, but he's also got the skills to make your app look gorgeous. If you're wondering if Sarthak is the guy for your iOS development job, I can assure you that he is!
+          </div>
+          <div class="review-author"><strong>Sidewalk Inc.</strong> &mdash; Client via Upwork</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- Skills Used -->
+  <section class="section">
+    <div class="container">
+      <div class="section-label">Skills &amp; Technologies</div>
+      <h2>What I Used on This Project</h2>
+      <div class="skills-row" style="margin-top:20px;">
+        <span class="skill-tag">Swift</span>
+        <span class="skill-tag">UIKit</span>
+        <span class="skill-tag">Firebase</span>
+        <span class="skill-tag">Firebase Realtime Database</span>
+        <span class="skill-tag">Firebase Cloud Messaging</span>
+        <span class="skill-tag">MapKit</span>
+        <span class="skill-tag">Push Notifications</span>
+        <span class="skill-tag">User Authentication</span>
+        <span class="skill-tag">API Integration</span>
+        <span class="skill-tag">Chat &amp; Messaging Software</span>
+        <span class="skill-tag">AWS</span>
+        <span class="skill-tag">Mobile App Development</span>
+        <span class="skill-tag">App Development</span>
+        <span class="skill-tag">Front-End Development</span>
+        <span class="skill-tag">Back-End Development</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Want to Build Something Like This?</h2>
+      <p>Let's discuss your app idea and how I can bring it to life with the same quality and attention to detail.</p>
+      <div class="cta-buttons">
+        <a href="/index.html#contact" class="btn-primary btn-cta">Let's Talk</a>
+        <a href="/portfolio/" class="btn-secondary btn-cta">View All Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 Sarthak Singh. All rights reserved. Built with care in Mumbai, India.</p>
+      <p style="margin-top:8px;font-size:11px;color:var(--dimmer);">
+        <a href="mailto:s27110815@gmail.com" style="color:var(--dim);">s27110815@gmail.com</a> &middot;
+        <a href="tel:+919336286116" style="color:var(--dim);">+91 93362 86116</a> &middot;
+        <a href="https://twitter.com/" target="_blank" rel="noopener" style="color:var(--dim);">Twitter</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="Screenshot preview" />
+  </div>
+
+  <script>
+    function openLightbox(img) {
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lightbox-img');
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lb.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
