@@ -1,7 +1,10 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Projects from "./components/Projects";
+import Process from "./components/Process";
 import About from "./components/About";
+import Testimonials from "./components/Testimonials";
+import Pricing from "./components/Pricing";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
@@ -20,7 +23,13 @@ export default function App() {
         <div className="gradient-border mx-auto max-w-5xl" />
         <Projects />
         <div className="gradient-border mx-auto max-w-5xl" />
+        <Process />
+        <div className="gradient-border mx-auto max-w-5xl" />
         <About />
+        <div className="gradient-border mx-auto max-w-5xl" />
+        <Testimonials />
+        <div className="gradient-border mx-auto max-w-5xl" />
+        <Pricing />
         <div className="gradient-border mx-auto max-w-5xl" />
         <Contact />
       </main>
