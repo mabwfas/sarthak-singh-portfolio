@@ -1,0 +1,297 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Light Editorial — Motion-Driven + Exaggerated Minimalism ── */
+  --color-bg: #FAFAFA;
+  --color-bg-alt: #FFFFFF;
+  --color-surface: #FFFFFF;
+  --color-brand: #2563EB;
+  --color-brand-light: #3B82F6;
+  --color-brand-50: #EFF6FF;
+  --color-brand-100: #DBEAFE;
+  --color-brand-200: #BFDBFE;
+  --color-text-primary: #09090B;
+  --color-text-secondary: #3F3F46;
+  --color-text-muted: #71717A;
+  --color-border: #E4E4E7;
+  --color-border-hover: #BFDBFE;
+  --color-input-border: #D4D4D8;
+
+  --font-heading: "Libre Bodoni", Georgia, serif;
+  --font-body: "Public Sans", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 10px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
+  --shadow-nav: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Base ─────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  overflow-x: hidden;
+  margin: 0;
+}
+
+::selection {
+  background-color: rgba(37, 99, 235, 0.15);
+  color: #09090B;
+}
+
+/* ── Scrollbar ────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4D4D8;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #A1A1AA;
+}
+
+/* ── Card Utilities ───────────────────────────────────── */
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.card-hover:hover {
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+}
+
+/* ── Navbar ───────────────────────────────────────────── */
+
+.nav-scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-nav);
+}
+
+/* ── Input Styling ────────────────────────────────────── */
+
+.input-light {
+  background: #FFFFFF;
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-button);
+  color: var(--color-text-primary);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-light:focus {
+  outline: none;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.input-light::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ── Gradient Text ────────────────────────────────────── */
+
+.gradient-text {
+  background: linear-gradient(135deg, #2563EB 0%, #6366F1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Skill Bar ────────────────────────────────────────── */
+
+.skill-bar-track {
+  background: #E4E4E7;
+  border-radius: 9999px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.skill-bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #2563EB, #3B82F6);
+  transform-origin: left;
+}
+
+/* ── Section Divider ──────────────────────────────────── */
+
+.section-line {
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* ── Button Primary ───────────────────────────────────── */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--color-brand);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.875rem;
+  border-radius: var(--radius-button);
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:hover {
+  background: #1D4ED8;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ── Button Secondary ─────────────────────────────────── */
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: 1px solid #18181B;
+  border-radius: var(--radius-button);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background: #F4F4F5;
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* ── Focus Ring ───────────────────────────────────────── */
+
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px var(--color-brand);
+}
+
+/* ── Reduced Motion ───────────────────────────────────── */
+
+/* ── Dot Grid Background Pattern ─────────────────────── */
+
+.dot-pattern {
+  background-image: radial-gradient(circle, #D4D4D8 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ── Animated Gradient Border ────────────────────────── */
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #2563EB, #6366F1, #2563EB, transparent);
+  background-size: 200% 100%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* ── Section Accent Bar ──────────────────────────────── */
+
+.section-accent {
+  width: 3px;
+  height: 40px;
+  background: linear-gradient(180deg, #2563EB, #3B82F6);
+  border-radius: 2px;
+}
+
+/* ── Active Nav Dot ──────────────────────────────────── */
+
+.nav-dot-active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #2563EB;
+}
+
+/* ── Reduced Motion ───────────────────────────────────── */
+
+/* ── Global Focus Ring for Keyboard Navigation ──────── */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #2563EB;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Pointer Cursor on Interactive Elements ──────────── */
+
+a,
+button,
+[role="button"],
+input[type="submit"] {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

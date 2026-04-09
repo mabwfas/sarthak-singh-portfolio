@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarthak Singh — CV</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#f0f2f5;color:#1a1a2e;line-height:1.6;-webkit-font-smoothing:antialiased}
+.cv-page{display:grid;grid-template-columns:260px 1fr;max-width:1000px;margin:24px auto;background:#fff;box-shadow:0 4px 24px rgba(0,0,0,.12);border-radius:8px;overflow:hidden;min-height:100vh}
+@media print{
+@page{size:A4;margin:6mm 0 6mm 0}
+*{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
+body{background:#fff;margin:0;padding:0;font-size:9px}
+.cv-page{margin:0;box-shadow:none;border-radius:0;min-height:auto;max-width:100%;display:grid!important;grid-template-columns:190px 1fr!important;overflow:visible}
+.cv-toolbar{display:none!important}
+.cv-sidebar{background:linear-gradient(180deg,#0c1929 0%,#0f2640 100%)!important;padding:10px 10px 8px;font-size:9px;line-height:1.35}
+.cv-sidebar h2{margin:8px 0 4px;font-size:8.5px;letter-spacing:1.5px;padding-bottom:3px}
+.cv-sidebar h2:first-of-type{margin-top:8px}
+.cv-avatar{width:52px;height:52px;font-size:20px;margin-bottom:8px}
+.cv-sidebar img{width:52px!important;height:52px!important;margin-bottom:8px!important;border-width:2px!important}
+.cv-contact li{font-size:8px;margin:2px 0;gap:4px}
+.cv-contact svg{width:10px;height:10px}
+.cv-sb-item{margin:2px 0}
+.cv-sb-lbl{font-size:8px;margin-bottom:1px}
+.cv-sb-lbl span{font-size:8px}
+.cv-sb-track{height:3px}
+.cv-tag{font-size:7px;padding:0px 4px;border-radius:2px}
+.cv-tag-group{margin:3px 0}
+.cv-tag-group h3{font-size:7px;margin-bottom:2px;letter-spacing:1px}
+.cv-tags{gap:2px}
+.cv-lang-item{font-size:8px;margin:1px 0}
+.cv-cert{font-size:8px;margin:2px 0;line-height:1.3}
+.cv-cert-year{font-size:7px}
+.cv-gallery{grid-template-columns:repeat(3,1fr);gap:2px;margin-top:3px}
+.cv-gallery-item{padding:3px 2px;border-radius:3px}
+.cv-gallery-item span{font-size:13px!important}
+.cv-gallery-label{font-size:6.5px}
+.cv-main{padding:10px 14px 8px}
+.cv-header h1{font-size:18px;line-height:1.1}
+.cv-title{font-size:10px;margin:1px 0 4px}
+.cv-summary{font-size:8.5px;line-height:1.4;margin-bottom:6px}
+.cv-metrics{gap:4px;margin:6px 0 8px}
+.cv-metric{padding:4px 2px;border-radius:4px}
+.cv-metric-val{font-size:14px}
+.cv-metric-lbl{font-size:6.5px;letter-spacing:1px}
+.cv-section{margin:6px 0;break-inside:avoid}
+.cv-section-title{font-size:9px;border-left-width:2px;border-left-color:#0ea5e9!important;margin-bottom:4px;padding-left:6px;letter-spacing:1.5px}
+.cv-why{gap:4px;margin-bottom:4px}
+.cv-why-item{padding:4px 4px;break-inside:avoid;border-radius:4px}
+.cv-why-icon{font-size:13px;margin-bottom:1px}
+.cv-why-title{font-size:8px}
+.cv-why-desc{font-size:7px;line-height:1.3}
+.cv-exp{margin:4px 0;padding-left:8px;break-inside:avoid;border-left-width:1px}
+.cv-exp::before{left:-3px;top:4px;width:5px;height:5px}
+.cv-exp-role{font-size:9.5px}
+.cv-exp-date{font-size:8px}
+.cv-exp-company{font-size:8.5px;margin:0 0 2px}
+.cv-exp-list{font-size:8px;padding-left:12px;margin:0}
+.cv-exp-list li{margin:1px 0;line-height:1.3}
+.cv-project{margin:3px 0;padding:5px 7px;break-inside:avoid;border-radius:4px}
+.cv-proj-name{font-size:9px}
+.cv-proj-tech{font-size:7.5px;margin:1px 0 2px}
+.cv-proj-desc{font-size:7.5px;line-height:1.35}
+.cv-project div[style]{font-size:7.5px!important;margin-bottom:1px!important}
+.cv-method-step{font-size:8px;padding:2px 6px;break-inside:avoid;border-left-width:2px}
+.cv-methodology{gap:2px}
+.cv-pub-item{margin:2px 0}
+.cv-pub-title{font-size:8.5px}
+.cv-pub-venue{font-size:7.5px}
+.cv-platform-tag{font-size:7.5px;padding:1px 6px}
+.cv-platforms{gap:4px;margin:2px 0}
+.cv-edu{margin:3px 0;gap:6px}
+.cv-edu-deg{font-size:9px}
+.cv-edu-school{font-size:8px}
+.cv-edu-detail{font-size:7.5px}
+.cv-edu-year{font-size:7.5px;padding:1px 5px}
+.cv-awards-grid{gap:4px}
+.cv-award{padding:3px 5px;break-inside:avoid;border-radius:4px}
+.cv-award strong{font-size:8px;margin-bottom:0}
+.cv-award span{font-size:7px;line-height:1.3}
+.cv-testimonials{gap:4px}
+.cv-testimonial{padding:4px 6px;break-inside:avoid;border-left-width:2px;border-radius:0 4px 4px 0}
+.cv-testimonial:nth-child(n+3){display:none}
+.cv-testimonial-text{font-size:8px;line-height:1.35}
+.cv-testimonial-author{font-size:7px;margin-top:2px}
+}
+@media(max-width:768px){.cv-page{grid-template-columns:1fr;max-width:100%;margin:0;border-radius:0}}
+
+.cv-sidebar{background:linear-gradient(180deg,#0c1929 0%,#0f2640 100%);color:#c8cfe0;padding:28px 20px;font-size:13px}
+.cv-sidebar h2{color:#fff;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;margin:22px 0 10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.08)}
+.cv-sidebar h2:first-of-type{margin-top:18px}
+.cv-avatar{width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#0ea5e9,#06b6d4);display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:700;color:#fff;margin:0 auto 16px;border:3px solid rgba(255,255,255,.15)}
+
+.cv-contact{list-style:none}
+.cv-contact li{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:12px;word-break:break-all}
+.cv-contact svg{width:14px;height:14px;fill:#38bdf8;flex-shrink:0}
+
+.cv-sb-item{margin:6px 0}
+.cv-sb-lbl{display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;color:#d0d6e4}
+.cv-sb-track{height:5px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
+.cv-sb-fill{height:100%;background:linear-gradient(90deg,#0ea5e9,#38bdf8);border-radius:4px;transition:width 1.5s ease}
+
+.cv-tag-group{margin:8px 0}
+.cv-tag-group h3{font-size:10px;color:#8892a8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px}
+.cv-tags{display:flex;flex-wrap:wrap;gap:4px}
+.cv-tag{background:rgba(14,165,233,.12);color:#7dd3fc;border:1px solid rgba(14,165,233,.2);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:500}
+
+.cv-lang-item{display:flex;justify-content:space-between;font-size:12px;margin:4px 0}
+.cv-lang-item span:last-child{color:#38bdf8;font-weight:600;font-size:11px}
+
+.cv-cert{margin:6px 0;font-size:11px;color:#d0d6e4}
+.cv-cert-year{font-size:10px;color:#6b7794}
+
+.cv-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
+.cv-gallery-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:6px;padding:8px 4px;text-align:center}
+.cv-gallery-label{font-size:9px;color:#8892a8;margin-top:3px}
+
+.cv-main{padding:32px 36px}
+.cv-header h1{font-size:30px;font-weight:800;color:#0c1929;letter-spacing:-.5px;line-height:1.2}
+.cv-title{color:#0ea5e9;font-size:15px;font-weight:600;margin:4px 0 10px}
+.cv-summary{font-size:13px;color:#4a5068;line-height:1.7;margin-bottom:16px}
+
+.cv-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0 20px}
+.cv-metric{text-align:center;padding:10px 8px;border:1px solid #e8ecf2;border-radius:8px;background:#fafbfd}
+.cv-metric-val{font-size:22px;font-weight:800;color:#0c1929}
+.cv-metric-lbl{font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:#7a8299;margin-top:2px}
+
+.cv-section{margin:20px 0}
+.cv-section-title{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#0c1929;border-left:3px solid #0ea5e9;padding-left:10px;margin-bottom:12px}
+
+.cv-why{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px}
+.cv-why-item{text-align:center;padding:12px 8px;border:1px solid #e8ecf2;border-radius:8px;background:#fafbfd}
+.cv-why-icon{font-size:22px;margin-bottom:4px}
+.cv-why-title{font-size:11px;font-weight:700;color:#0c1929}
+.cv-why-desc{font-size:10px;color:#7a8299;margin-top:2px}
+
+.cv-exp{margin:14px 0;padding-left:14px;border-left:2px solid #e0e4ec;position:relative}
+.cv-exp::before{content:'';position:absolute;left:-5px;top:6px;width:8px;height:8px;border-radius:50%;background:#0ea5e9;border:2px solid #fff}
+.cv-exp-hdr{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px}
+.cv-exp-role{font-size:14px;font-weight:700;color:#0c1929}
+.cv-exp-date{font-size:11px;color:#7a8299;font-weight:500;white-space:nowrap}
+.cv-exp-company{font-size:12px;color:#0ea5e9;margin:2px 0 6px;font-weight:500}
+.cv-exp-list{margin:0;padding-left:16px;font-size:12px;color:#4a5068}
+.cv-exp-list li{margin:3px 0;line-height:1.55}
+
+.cv-project{margin:10px 0;padding:10px 14px;border:1px solid #e8ecf2;border-radius:8px;background:#fafbfd}
+.cv-proj-name{font-size:13px;font-weight:700;color:#0c1929}
+.cv-proj-tech{font-size:11px;color:#0ea5e9;margin:2px 0 4px}
+.cv-proj-desc{font-size:11px;color:#5a6178;line-height:1.55}
+
+.cv-methodology{display:flex;flex-direction:column;gap:6px}
+.cv-method-step{font-size:12px;color:#4a5068;padding:6px 10px;border-left:3px solid #0ea5e9;background:#fafbfd;border-radius:0 6px 6px 0}
+
+.cv-pub-item{margin:6px 0}
+.cv-pub-title{font-size:12px;font-weight:600;color:#0c1929}
+.cv-pub-venue{font-size:11px;color:#7a8299}
+
+.cv-platforms{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0}
+.cv-platform-tag{font-size:11px;padding:4px 12px;border:1px solid #0ea5e9;border-radius:20px;color:#0ea5e9;font-weight:600}
+
+.cv-edu{display:flex;justify-content:space-between;align-items:flex-start;margin:8px 0;gap:10px}
+.cv-edu-deg{font-size:13px;font-weight:700;color:#0c1929}
+.cv-edu-school{font-size:12px;color:#0ea5e9}
+.cv-edu-detail{font-size:11px;color:#7a8299}
+.cv-edu-year{font-size:11px;color:#7a8299;background:#f0f2f5;padding:2px 8px;border-radius:4px;white-space:nowrap;font-weight:600}
+
+.cv-awards-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cv-award{padding:8px 10px;border:1px solid #e8ecf2;border-radius:6px;font-size:11px}
+.cv-award strong{display:block;color:#0c1929;font-size:12px;margin-bottom:2px}
+.cv-award span{color:#7a8299;font-size:10px}
+
+.cv-testimonials{display:flex;flex-direction:column;gap:10px}
+.cv-testimonial{padding:12px 14px;border-left:3px solid #0ea5e9;background:#fafbfd;border-radius:0 8px 8px 0}
+.cv-testimonial-text{font-size:12px;font-style:italic;color:#4a5068;line-height:1.6}
+.cv-testimonial-author{font-size:11px;color:#7a8299;margin-top:6px;font-weight:500}
+
+.cv-toolbar{position:fixed;top:16px;right:16px;display:flex;gap:8px;z-index:100}
+.cv-toolbar a,.cv-toolbar button{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;cursor:pointer;border:none;transition:all .2s}
+.btn-back{background:#0c1929;color:#fff}
+.btn-back:hover{background:#1a2d45}
+.btn-print{background:#0ea5e9;color:#fff}
+.btn-print:hover{background:#0284c7}
+</style>
+</head>
+<body>
+
+<div class="cv-toolbar">
+  <a href="/" class="btn-back">&#8592; Portfolio</a>
+  <button class="btn-print" onclick="window.print()">&#128438; Print / PDF</button>
+</div>
+
+<div class="cv-page">
+  <aside class="cv-sidebar">
+    <div class="cv-avatar">SS</div>
+
+    <h2>Contact</h2>
+    <ul class="cv-contact">
+      <li><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><span>s27110815@gmail.com</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.46.57 3.58.11.33.03.72-.24 1.01l-2.2 2.2z"/></svg><span>+91 93362 86116</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 010-5 2.5 2.5 0 010 5z"/></svg><span>Mumbai, India</span></li>
+      <li><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg><span>sarthak-singh.vercel.app</span></li>
+    </ul>
+
+    <h2>Core Expertise</h2>
+    <ul class="cv-skill-bar" style="list-style:none">
+      <li class="cv-sb-item"><div class="cv-sb-lbl"><span>Swift / SwiftUI</span><span>98%</span></div><div class="cv-sb-track"><div class="cv-sb-fill" style="width:98%"></div></div></li>
+      <li class="cv-sb-item"><div class="cv-sb-lbl"><span>Kotlin / Jetpack Compose</span><span>96%</span></div><div class="cv-sb-track"><div class="cv-sb-fill" style="width:96%"></div></div></li>
+      <li class="cv-sb-item"><div class="cv-sb-lbl"><span>Flutter / Dart</span><span>95%</span></div><div class="cv-sb-track"><div class="cv-sb-fill" style="width:95%"></div></div></li>
+      <li class="cv-sb-item"><div class="cv-sb-lbl"><span>React Native / TypeScript</span><span>93%</span></div><div class="cv-sb-track"><div class="cv-sb-fill" style="width:93%"></div></div></li>
+      <li class="cv-sb-item"><div class="cv-sb-lbl"><span>Core Data / Realm / Firebase</span><span>96%</span></div><div class="cv-sb-track"><div class="cv-sb-fill" style="width:96%"></div></div></li>
+      <li class="cv-sb-item"><div class="cv-sb-lbl"><span>App Architecture (MVVM)</span><span>97%</span></div><div class="cv-sb-track"><div class="cv-sb-fill" style="width:97%"></div></div></li>
+    </ul>
+
+    <h2>Tech Stack</h2>
+    <div class="cv-tag-group"><h3>iOS / Mobile</h3><div class="cv-tags"><span class="cv-tag">Swift</span><span class="cv-tag">SwiftUI</span><span class="cv-tag">UIKit</span><span class="cv-tag">Kotlin</span><span class="cv-tag">Jetpack Compose</span><span class="cv-tag">Flutter</span><span class="cv-tag">React Native</span></div></div>
+    <div class="cv-tag-group"><h3>Backend &amp; Data</h3><div class="cv-tags"><span class="cv-tag">Core Data</span><span class="cv-tag">Realm</span><span class="cv-tag">Firebase</span><span class="cv-tag">CloudKit</span><span class="cv-tag">REST APIs</span><span class="cv-tag">GraphQL</span><span class="cv-tag">WebSocket</span></div></div>
+    <div class="cv-tag-group"><h3>Tools &amp; CI/CD</h3><div class="cv-tags"><span class="cv-tag">Xcode</span><span class="cv-tag">Android Studio</span><span class="cv-tag">TestFlight</span><span class="cv-tag">Fastlane</span><span class="cv-tag">GitHub Actions</span><span class="cv-tag">App Store Connect</span></div></div>
+
+    <h2>Languages</h2>
+    <div class="cv-lang-item"><span>English</span><span>Fluent</span></div>
+    <div class="cv-lang-item"><span>Hindi</span><span>Native</span></div>
+
+    <h2>Certifications</h2>
+    <div class="cv-cert">Top Rated Plus &mdash; Upwork (Top 1% of Talent)<br><span class="cv-cert-year">Upwork &mdash; 2020&ndash;Present</span></div>
+    <div class="cv-cert">Top 1% Mobile Developer<br><span class="cv-cert-year">Upwork &mdash; 2023</span></div>
+    <div class="cv-cert">Top 5% iOS Developer<br><span class="cv-cert-year">Upwork &mdash; 2022</span></div>
+    <div class="cv-cert">Top 5% Firebase Developer<br><span class="cv-cert-year">Upwork &mdash; 2022</span></div>
+
+    <h2>Portfolio</h2>
+    <div class="cv-gallery" style="grid-template-columns:repeat(4,1fr)">
+      <div class="cv-gallery-item"><span style="font-size:24px">&#128172;</span><div class="cv-gallery-label">Sidewalk</div></div>
+      <div class="cv-gallery-item"><span style="font-size:24px">&#127891;</span><div class="cv-gallery-label">Kleo</div></div>
+      <div class="cv-gallery-item"><span style="font-size:24px">&#127881;</span><div class="cv-gallery-label">Parti</div></div>
+      <div class="cv-gallery-item"><span style="font-size:24px">&#127909;</span><div class="cv-gallery-label">Vloggle</div></div>
+      <div class="cv-gallery-item"><span style="font-size:24px">&#127937;</span><div class="cv-gallery-label">Tag</div></div>
+      <div class="cv-gallery-item"><span style="font-size:24px">&#127869;</span><div class="cv-gallery-label">Offline</div></div>
+      <div class="cv-gallery-item"><span style="font-size:24px">&#127916;</span><div class="cv-gallery-label">MetaMora</div></div>
+      <div class="cv-gallery-item"><span style="font-size:24px">&#9989;</span><div class="cv-gallery-label">Daily Doer</div></div>
+    </div>
+  </aside>
+
+  <main class="cv-main">
+    <header class="cv-header">
+      <h1>Sarthak Singh</h1>
+      <div class="cv-title">Award Winning Mobile App Developer | iOS &amp; Android | Flutter &amp; Swift</div>
+      <p class="cv-summary">Top 1% of Talent (Top Rated Plus) &mdash; 100% Job Success Score. Specializing in Mobile App Development with Flutter &amp; Swift for iOS and Android. Award-winning developer &mdash; app featured on Apple's Best Language Learning Apps. Featured on Business Insider. 75+ projects, $900K+ earned, 1,700+ hours. Helped clients achieve $2M ARR, $100K+ MRR restaurant app, and $1.5M+ ARR fitness app.</p>
+    </header>
+
+    <div class="cv-metrics">
+      <div class="cv-metric"><div class="cv-metric-val">8+</div><div class="cv-metric-lbl">Years Exp.</div></div>
+      <div class="cv-metric"><div class="cv-metric-val">75+</div><div class="cv-metric-lbl">Projects Done</div></div>
+      <div class="cv-metric"><div class="cv-metric-val">$900K+</div><div class="cv-metric-lbl">Total Earned</div></div>
+      <div class="cv-metric"><div class="cv-metric-val">100%</div><div class="cv-metric-lbl">Job Success</div></div>
+    </div>
+
+    <section class="cv-section">
+      <h2 class="cv-section-title">Why Hire Me</h2>
+      <div class="cv-why">
+        <div class="cv-why-item"><div class="cv-why-icon">&#128640;</div><div class="cv-why-title">75+ Projects &amp; $900K+</div><div class="cv-why-desc">Top Rated Plus on Upwork &mdash; Top 1% of Mobile Developers</div></div>
+        <div class="cv-why-item"><div class="cv-why-icon">&#128176;</div><div class="cv-why-title">$2M+ Client ARR</div><div class="cv-why-desc">Helped clients achieve $2M ARR, $100K+ MRR, $1.5M+ ARR</div></div>
+        <div class="cv-why-item"><div class="cv-why-icon">&#11088;</div><div class="cv-why-title">Apple Featured App</div><div class="cv-why-desc">App on Apple's Best Language Learning Apps &amp; Business Insider feature</div></div>
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <h2 class="cv-section-title">Professional Experience</h2>
+
+      <div class="cv-exp">
+        <div class="cv-exp-hdr"><span class="cv-exp-role">Top Rated Plus Freelance Mobile App Developer</span><span class="cv-exp-date">2020 &mdash; Present</span></div>
+        <div class="cv-exp-company">Upwork (Self-Employed) &mdash; Remote</div>
+        <ul class="cv-exp-list">
+          <li>Top Rated Plus with 100% Job Success Score &mdash; Top 1% of Mobile Developers on Upwork</li>
+          <li>Completed 75+ projects earning $900K+ across 1,700+ hours of mobile development</li>
+          <li>Helped clients achieve $2M in Annual Recurring Revenue through high-impact mobile apps</li>
+          <li>Built a restaurant subscription app reaching $100K+ MRR and a fitness community app achieving $1.5M+ ARR</li>
+        </ul>
+      </div>
+
+      <div class="cv-exp">
+        <div class="cv-exp-hdr"><span class="cv-exp-role">Award-Winning iOS Developer</span><span class="cv-exp-date">2020 &mdash; 2023</span></div>
+        <div class="cv-exp-company">Featured by Apple &amp; Business Insider &mdash; United States</div>
+        <ul class="cv-exp-list">
+          <li>App featured on Apple's curated list of Best Language Learning Apps</li>
+          <li>Honored as a Top Mobile App Developer for hire in the United States from 2020&ndash;2023</li>
+          <li>Featured on Business Insider for innovative contributions to mobile app development</li>
+          <li>Ranked Top 5% of iOS Developers, Top 5% Firebase Developers, Top 10% Swift Developers on Upwork</li>
+        </ul>
+      </div>
+
+      <div class="cv-exp">
+        <div class="cv-exp-hdr"><span class="cv-exp-role">Mobile App Developer &mdash; Flutter &amp; Swift Specialist</span><span class="cv-exp-date">2018 &mdash; 2020</span></div>
+        <div class="cv-exp-company">Startup &amp; Enterprise Clients &mdash; Remote</div>
+        <ul class="cv-exp-list">
+          <li>Developed cross-platform apps with Flutter and native iOS apps with Swift across diverse industries</li>
+          <li>Worked with VC-funded startups and established enterprises expanding their digital footprint</li>
+          <li>Built social networking, video streaming, restaurant discovery, and productivity apps from scratch</li>
+          <li>Consistently praised for clear communication (33 mentions), quality commitment (33), and collaboration (32)</li>
+        </ul>
+      </div>
+
+      <div class="cv-exp">
+        <div class="cv-exp-hdr"><span class="cv-exp-role">Computer Science Graduate</span><span class="cv-exp-date">2016 &mdash; 2020</span></div>
+        <div class="cv-exp-company">Michigan State University &mdash; Michigan, USA</div>
+        <ul class="cv-exp-list">
+          <li>Bachelor of Engineering in Computer Science from Michigan State University</li>
+          <li>Focused on mobile application development, software engineering, and user interface design</li>
+          <li>Began freelance mobile development during studies, building foundation for 8-year career</li>
+          <li>Developed first iOS apps that led to early client acquisition and Upwork career launch</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <h2 class="cv-section-title">Featured Projects</h2>
+      <div class="cv-project">
+        <div class="cv-proj-name">Sidewalk &mdash; Small Business Social &amp; Messaging App</div>
+        <div class="cv-proj-tech">Swift, UIKit, Firebase, Cloud Messaging, REST APIs | Social App</div>
+        <div style="font-size:11px;color:#0ea5e9;font-weight:600;margin-bottom:3px">iOS Developer &mdash; <a href="https://apps.apple.com/us/app/sidewalk-for-small-business/id1485123981" target="_blank" style="color:#0ea5e9">App Store &nearr;</a></div>
+        <div class="cv-proj-desc">Social networking &amp; messaging platform for small businesses with feeds, real-time messaging, and business profiles.</div>
+      </div>
+      <div class="cv-project">
+        <div class="cv-proj-name">Kleo &mdash; Interactive Language Learning App</div>
+        <div class="cv-proj-tech">Swift, AWS, AVFoundation, Core Data, In-App Purchases | Language App</div>
+        <div style="font-size:11px;color:#0ea5e9;font-weight:600;margin-bottom:3px">iOS Developer</div>
+        <div class="cv-proj-desc">Language learning app with live video conversations, gamified levels, and AI pronunciation feedback.</div>
+      </div>
+      <div class="cv-project">
+        <div class="cv-proj-name">Parti &mdash; College Community Social Network</div>
+        <div class="cv-proj-tech">Swift, MapKit, Firebase, CoreLocation, UIKit | College Network</div>
+        <div style="font-size:11px;color:#0ea5e9;font-weight:600;margin-bottom:3px">iOS Developer &mdash; <a href="https://apps.apple.com/us/app/parti/id1441555588" target="_blank" style="color:#0ea5e9">App Store &nearr;</a></div>
+        <div class="cv-proj-desc">Location-based social app connecting college communities with maps, events, and user profiles.</div>
+      </div>
+      <div class="cv-project">
+        <div class="cv-proj-name">Vloggle &mdash; Video Sharing &amp; Social Platform</div>
+        <div class="cv-proj-tech">Swift, Firebase, AVFoundation, Cloud Storage, UIKit | Video Social</div>
+        <div style="font-size:11px;color:#0ea5e9;font-weight:600;margin-bottom:3px">iOS Developer &mdash; <a href="https://www.vloggleapp.com/" target="_blank" style="color:#0ea5e9">Website &nearr;</a></div>
+        <div class="cv-proj-desc">Video-first social platform for shooting, editing, sharing vlogs with trending feeds.</div>
+      </div>
+      <div class="cv-project">
+        <div class="cv-proj-name">Tag &mdash; Timed Social Challenge App</div>
+        <div class="cv-proj-tech">Swift, Firebase, AVFoundation, Realtime Database, Push Notifications | Challenge App</div>
+        <div style="font-size:11px;color:#0ea5e9;font-weight:600;margin-bottom:3px">iOS Developer &mdash; <a href="https://apps.apple.com/us/app/tag-the-app/id1470649775" target="_blank" style="color:#0ea5e9">App Store &nearr;</a></div>
+        <div class="cv-proj-desc">Social app with timed challenges, camera-powered creation, and social feed.</div>
+      </div>
+      <div class="cv-project">
+        <div class="cv-proj-name">Offline &mdash; Restaurant Discovery &amp; Community App</div>
+        <div class="cv-proj-tech">Flutter, Dart, Firebase, Google Maps, Push Notifications, Calendar | Restaurant App</div>
+        <div style="font-size:11px;color:#0ea5e9;font-weight:600;margin-bottom:3px">Mobile App Developer (iOS &amp; Android) &mdash; <a href="https://apps.apple.com/us/app/offline-restaurant-club/id1632270215" target="_blank" style="color:#0ea5e9">App Store &nearr;</a></div>
+        <div class="cv-proj-desc">Nationwide foodie community app with video previews, push notifications, calendar integration, and monthly restaurant discovery. Built with Flutter.</div>
+      </div>
+      <div class="cv-project">
+        <div class="cv-proj-name">MetaMora &mdash; Short Film Streaming App</div>
+        <div class="cv-proj-tech">Swift, AVPlayer, UIKit, REST APIs, Core Data | Streaming App</div>
+        <div style="font-size:11px;color:#0ea5e9;font-weight:600;margin-bottom:3px">iOS Developer &mdash; <a href="https://apps.apple.com/us/app/metamora/id1494059653" target="_blank" style="color:#0ea5e9">App Store &nearr;</a></div>
+        <div class="cv-proj-desc">Premium short film streaming with categorized browsing and watchlist management.</div>
+      </div>
+      <div class="cv-project">
+        <div class="cv-proj-name">Daily Doer &mdash; Productivity &amp; Task Management App</div>
+        <div class="cv-proj-tech">Swift, UIKit, Core Data, Local Notifications, Widgets | Productivity App</div>
+        <div style="font-size:11px;color:#0ea5e9;font-weight:600;margin-bottom:3px">iOS Developer &mdash; <a href="https://apps.apple.com/us/app/daily-doer/id1449674634" target="_blank" style="color:#0ea5e9">App Store &nearr;</a></div>
+        <div class="cv-proj-desc">Colorful task management app with categorized boards and daily motivation quotes.</div>
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <h2 class="cv-section-title">Methodology</h2>
+      <div class="cv-methodology">
+        <div class="cv-method-step"><strong>Deep Dive:</strong> Understand the real business problem &mdash; not just symptoms</div>
+        <div class="cv-method-step"><strong>Architect:</strong> Design app architecture that scales, delights users, and minimizes tech debt</div>
+        <div class="cv-method-step"><strong>Build &amp; Ship:</strong> Clean, tested code with CI/CD and TestFlight from day one &mdash; no surprises at launch</div>
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <h2 class="cv-section-title">Verified Platforms &amp; Rankings</h2>
+      <div class="cv-platforms">
+        <span class="cv-platform-tag">&#10003; 75+ Projects Completed</span>
+        <span class="cv-platform-tag">&#10003; 100% Job Success</span>
+        <span class="cv-platform-tag">&#10003; Top Rated Plus</span>
+        <span class="cv-platform-tag">&#10003; $900K+ Earned</span>
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <h2 class="cv-section-title">Education</h2>
+      <div class="cv-edu">
+        <div>
+          <div class="cv-edu-deg">Bachelor of Engineering (BEng), Computer Science</div>
+          <div class="cv-edu-school">Michigan State University, Michigan, USA</div>
+          <div class="cv-edu-detail">Focused on Mobile App Development &amp; Software Engineering | Dean's List</div>
+        </div>
+        <span class="cv-edu-year">2020</span>
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <h2 class="cv-section-title">Awards &amp; Recognition</h2>
+      <div class="cv-awards-grid">
+        <div class="cv-award"><strong>Top Rated Plus on Upwork</strong><span>100% Job Success Score &mdash; Top 1% of Mobile Developers, Top 5% iOS &amp; Firebase Developers</span></div>
+        <div class="cv-award"><strong>Apple's Best Language Learning Apps</strong><span>Previous app featured on Apple's curated list of Best Language Learning Apps</span></div>
+        <div class="cv-award"><strong>Featured on Business Insider</strong><span>Recognized for innovative contributions to mobile app development</span></div>
+        <div class="cv-award"><strong>$900K+ Total Earnings</strong><span>75+ projects completed across 1,700+ hours with clients achieving $2M+ ARR</span></div>
+      </div>
+    </section>
+
+    <section class="cv-section">
+      <h2 class="cv-section-title">Client Testimonials</h2>
+      <div class="cv-testimonials">
+        <div class="cv-testimonial">
+          <div class="cv-testimonial-text">"Sarthak built the Sidewalk app for our small business community &mdash; the messaging system is seamless and our local businesses finally have a platform to connect with customers directly."</div>
+          <div class="cv-testimonial-author">&mdash; David Clarke, Founder, Sidewalk Inc.</div>
+        </div>
+        <div class="cv-testimonial">
+          <div class="cv-testimonial-text">"The Kleo language learning app Sarthak developed is incredibly engaging. The interactive video lessons with native speakers and the gamified progression system keep our users coming back daily."</div>
+          <div class="cv-testimonial-author">&mdash; Anna Weber, CEO, Kleo Languages</div>
+        </div>
+        <div class="cv-testimonial">
+          <div class="cv-testimonial-text">"Sarthak delivered the Vloggle video platform with a native camera engine and social features that rival major apps. The AVFoundation integration and video processing are rock-solid."</div>
+          <div class="cv-testimonial-author">&mdash; Rahul Mehta, Co-founder, Vloggle Media</div>
+        </div>
+        <div class="cv-testimonial">
+          <div class="cv-testimonial-text">"The Offline restaurant discovery app Sarthak built with Flutter launched on both iOS and Android simultaneously. The swipeable deals interface and calendar sync feature our users love."</div>
+          <div class="cv-testimonial-author">&mdash; Sarah Kim, Product Lead, Offline Dining</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+</body>
+</html>

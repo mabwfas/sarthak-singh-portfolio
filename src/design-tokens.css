@@ -1,0 +1,133 @@
+/* Design Tokens - Auto-generated */
+/* Do not edit directly - modify tokens.json instead */
+
+/* === PRIMITIVES === */
+:root {
+  --primitive-color-sky-400: #38bdf8;
+  --primitive-color-sky-500: #0ea5e9;
+  --primitive-color-sky-600: #0284c7;
+  --primitive-color-sky-700: #0369a1;
+  --primitive-color-cyan-400: #22d3ee;
+  --primitive-color-cyan-500: #06b6d4;
+  --primitive-color-emerald-400: #34d399;
+  --primitive-color-emerald-500: #10b981;
+  --primitive-color-amber-400: #fbbf24;
+  --primitive-color-amber-500: #f59e0b;
+  --primitive-color-pink-400: #f472b6;
+  --primitive-color-pink-500: #ec4899;
+  --primitive-color-slate-50: #f8fafc;
+  --primitive-color-slate-100: #f1f5f9;
+  --primitive-color-slate-200: #e2e8f0;
+  --primitive-color-slate-300: #cbd5e1;
+  --primitive-color-slate-400: #94a3b8;
+  --primitive-color-slate-500: #64748b;
+  --primitive-color-slate-600: #475569;
+  --primitive-color-slate-700: #334155;
+  --primitive-color-slate-800: #1e293b;
+  --primitive-color-slate-900: #0f172a;
+  --primitive-color-slate-950: #030712;
+  --primitive-color-black: #050505;
+  --primitive-color-white: #ffffff;
+  --primitive-spacing-1: 0.25rem;
+  --primitive-spacing-2: 0.5rem;
+  --primitive-spacing-3: 0.75rem;
+  --primitive-spacing-4: 1rem;
+  --primitive-spacing-5: 1.25rem;
+  --primitive-spacing-6: 1.5rem;
+  --primitive-spacing-8: 2rem;
+  --primitive-spacing-10: 2.5rem;
+  --primitive-spacing-12: 3rem;
+  --primitive-spacing-16: 4rem;
+  --primitive-spacing-20: 5rem;
+  --primitive-spacing-24: 6rem;
+  --primitive-spacing-28: 7rem;
+  --primitive-fontSize-xs: 0.6875rem;
+  --primitive-fontSize-sm: 0.875rem;
+  --primitive-fontSize-base: 1rem;
+  --primitive-fontSize-lg: 1.125rem;
+  --primitive-fontSize-xl: 1.25rem;
+  --primitive-fontSize-2xl: 1.5rem;
+  --primitive-fontSize-3xl: 1.875rem;
+  --primitive-fontSize-4xl: 2.25rem;
+  --primitive-fontSize-5xl: 3rem;
+  --primitive-fontSize-6xl: 3.75rem;
+  --primitive-fontSize-7xl: 4.5rem;
+  --primitive-fontFamily-display: 'Space Grotesk', system-ui, sans-serif;
+  --primitive-fontFamily-body: 'Inter', system-ui, sans-serif;
+  --primitive-fontFamily-mono: 'JetBrains Mono', monospace;
+  --primitive-radius-sm: 0.375rem;
+  --primitive-radius-md: 0.5rem;
+  --primitive-radius-lg: 0.75rem;
+  --primitive-radius-xl: 1rem;
+  --primitive-radius-2xl: 1.5rem;
+  --primitive-radius-full: 9999px;
+  --primitive-duration-fast: 150ms;
+  --primitive-duration-normal: 250ms;
+  --primitive-duration-slow: 400ms;
+  --primitive-duration-reveal: 700ms;
+  --primitive-glass-blur-sm: blur(12px);
+  --primitive-glass-blur-md: blur(20px);
+  --primitive-glass-blur-lg: blur(28px);
+  --primitive-glass-saturate: saturate(1.3);
+}
+
+/* === SEMANTIC === */
+:root {
+  --color-brand: #0ea5e9;
+  --color-brand-light: #38bdf8;
+  --color-brand-dark: #0284c7;
+  --color-accent-cyan: #06b6d4;
+  --color-accent-emerald: #34d399;
+  --color-accent-amber: #fbbf24;
+  --color-bg-page: #050505;
+  --color-bg-surface: #030712;
+  --color-bg-raised: #0f172a;
+  --color-bg-overlay: #1e293b;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  --color-text-disabled: #334155;
+  --color-border-default: rgba(255,255,255,0.06);
+  --color-border-hover: rgba(14,165,233,0.2);
+  --color-border-active: rgba(14,165,233,0.4);
+  --spacing-section-y: 7rem;
+  --spacing-section-x: 1.5rem;
+  --spacing-card-padding: 1.5rem;
+  --spacing-content-gap: 1rem;
+  --typography-heading-font: 'Space Grotesk', system-ui, sans-serif;
+  --typography-body-font: 'Inter', system-ui, sans-serif;
+  --typography-mono-font: 'JetBrains Mono', monospace;
+}
+
+/* === COMPONENTS === */
+:root {
+  --navbar-bg: rgba(5,5,5,0.8);
+  --navbar-blur: blur(20px);
+  --navbar-border: rgba(255,255,255,0.06);
+  --navbar-height: 3.5rem;
+  --card-bg: rgba(255,255,255,0.015);
+  --card-bg-hover: rgba(255,255,255,0.03);
+  --card-border: rgba(255,255,255,0.06);
+  --card-border-hover: rgba(14,165,233,0.2);
+  --card-radius: 1rem;
+  --card-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  --card-shadow-hover: 0 20px 60px rgba(0,0,0,0.4), 0 4px 16px rgba(14,165,233,0.08);
+  --glass-bg: rgba(255,255,255,0.02);
+  --glass-bg-raised: rgba(255,255,255,0.03);
+  --glass-bg-premium: rgba(255,255,255,0.025);
+  --glass-blur: blur(20px);
+  --glass-blur-premium: blur(28px);
+  --glass-border: 1px solid rgba(255,255,255,0.06);
+  --glass-inset-glow: inset 0 1px 0 rgba(255,255,255,0.04);
+  --button-primary-bg: #0ea5e9;
+  --button-primary-bg-hover: #38bdf8;
+  --button-primary-text: #ffffff;
+  --button-ghost-bg: transparent;
+  --button-ghost-bg-hover: rgba(255,255,255,0.05);
+  --button-radius: 0.75rem;
+  --button-padding-x: 1.5rem;
+  --button-padding-y: 0.75rem;
+  --glow-brand-sm: 0 0 15px rgba(14,165,233,0.1);
+  --glow-brand-md: 0 0 30px rgba(14,165,233,0.15);
+  --glow-brand-lg: 0 0 60px rgba(14,165,233,0.2);
+}
