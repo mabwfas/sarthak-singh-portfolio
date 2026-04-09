@@ -86,9 +86,11 @@ export default function Contact() {
             <span className="gradient-text">Amazing</span>
           </h2>
           <div className="section-line mx-auto mb-4 w-24" />
-          <p className="mx-auto max-w-lg text-base text-[#71717A]">
-            Have a project in mind? I'd love to hear about it. Drop me a message
-            and let's discuss how we can bring your idea to life.
+          <p className="mx-auto max-w-2xl text-base leading-relaxed text-[#71717A]">
+            Whether you need an iOS app from scratch, a Flutter cross-platform build, or a rescue mission
+            for a failing project — I've done it 75+ times with a 100% success rate.
+            No scope creep, no surprises, no excuses. Just clean code, honest communication, and an app
+            you'll be proud to put in front of users. Let's talk.
           </p>
         </motion.div>
 

@@ -83,7 +83,16 @@ function ProjectCard({
           <span className="inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-[#2563EB]" />
           {project.title}
         </h3>
-        <p className="mb-3 text-sm text-[#71717A]">{project.subtitle}</p>
+        <p className="mb-2 text-sm text-[#71717A]">{project.subtitle}</p>
+        {project.description && (
+          <p className="mb-3 text-xs leading-relaxed text-[#A1A1AA] line-clamp-3">{project.description}</p>
+        )}
+        {project.review && (
+          <div className="mb-3 rounded-lg border-l-2 border-[#2563EB] bg-[#F8FAFC] px-3 py-2">
+            <p className="text-[11px] leading-relaxed text-[#3F3F46] italic line-clamp-2">"{project.review.text.slice(0, 150)}..."</p>
+            <p className="mt-1 text-[10px] font-medium text-[#2563EB]">— {project.review.author}, {project.review.role} • {project.review.rating}★</p>
+          </div>
+        )}
         <div className="mb-3 flex flex-wrap gap-1.5">
           {project.tech.map((t) => (
             <span
@@ -171,10 +180,10 @@ export default function Projects() {
               Featured <span className="gradient-text">Mobile Apps</span>
             </h2>
             <div className="section-line mx-auto mb-4 w-24" />
-            <p className="mx-auto max-w-lg text-base text-[#71717A]">
-              A selection of mobile applications built for startups and
-              businesses across social, education, entertainment, and
-              productivity.
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-[#71717A]">
+              Every app below was built from the ground up — from architecture to App Store submission.
+              These aren't mockups or concepts. They're real products with real users, real 5-star reviews,
+              and real revenue. Each one represents months of collaboration, iteration, and relentless polish.
             </p>
           </motion.div>
         </div>

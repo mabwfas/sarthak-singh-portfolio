@@ -132,8 +132,11 @@ export default function About() {
             >
               Who I Am
             </h3>
-            <p className="mb-6 text-lg leading-[1.8] text-[#3F3F46]">
+            <p className="mb-4 text-lg leading-[1.8] text-[#3F3F46]">
               {profile.bio}
+            </p>
+            <p className="mb-6 text-base leading-[1.8] text-[#71717A]">
+              I don't just write code — I build products. Every app I ship goes through rigorous testing, pixel-perfect design reviews, and performance optimization before it hits the App Store. My clients don't just get a developer — they get a technical partner who cares about their business outcomes as much as the codebase.
             </p>
             <div className="card rounded-xl p-4">
               <div className="flex items-center gap-3">

@@ -135,7 +135,7 @@ export default function Hero() {
               variants={blurIn}
               className="mb-8 max-w-xl text-base leading-relaxed text-[#71717A]"
             >
-              {profile.tagline}. {profile.bio.split(". ").slice(0, 2).join(". ")}.
+              I build mobile apps that people actually use — and love. From social platforms with 5-star reviews to apps featured by Apple, I've shipped 75+ projects earning $900K+ on Upwork with a perfect 100% Job Success Score. When you work with me, you get an engineer who treats your app like his own product.
             </motion.p>
 
             {/* Trust Badges */}
