@@ -59,6 +59,7 @@ export const projects: Project[] = [
       "/projects/sidewalk-1.jpg",
       "/projects/sidewalk-2.jpg",
       "/projects/sidewalk-3.jpg",
+      "/projects/sidewalk-4.jpg",
     ],
     featured: true,
     appStoreUrl: "https://apps.apple.com/us/app/sidewalk-for-small-business/id1485123981",
